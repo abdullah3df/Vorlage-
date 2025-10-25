@@ -1,0 +1,54 @@
+<!DOCTYPE html><html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>محرر الكود — صفحة معاينة فورية</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    textarea {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      resize: none;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-gray-100 text-gray-900 flex flex-col items-center py-10">
+  <h1 class="text-3xl font-bold mb-2">⚡️ محرر كود مباشر</h1>
+  <p class="text-gray-600 mb-6">اكتب كودك في المربع بالأسفل وشاهد النتيجة فورًا في المعاينة.</p>  <div class="w-full max-w-5xl bg-white shadow-lg rounded-xl overflow-hidden border">
+    <div class="bg-gray-50 px-4 py-2 border-b text-sm text-gray-600 flex items-center justify-between">
+      <span>محرر HTML / CSS / JS</span>
+      <button id="run" class="px-3 py-1.5 bg-indigo-600 text-white rounded-lg text-xs">تشغيل الكود ▶️</button>
+    </div><div class="grid md:grid-cols-3 divide-y md:divide-y-0 md:divide-x">
+  <textarea id="html" class="p-3 h-64 outline-none" placeholder="اكتب HTML هنا..."></textarea>
+  <textarea id="css" class="p-3 h-64 outline-none" placeholder="اكتب CSS هنا..."></textarea>
+  <textarea id="js" class="p-3 h-64 outline-none" placeholder="اكتب JavaScript هنا..."></textarea>
+</div>
+
+<div class="bg-gray-50 px-4 py-2 border-t text-sm text-gray-600">المعاينة:</div>
+<iframe id="preview" class="w-full h-96 border-none"></iframe>
+
+  </div>  <footer class="mt-6 text-gray-500 text-sm">صُنع داخل GPT — محرر فوري بدون إعدادات 🚀</footer>  <script>
+    const runBtn = document.getElementById('run');
+    const html = document.getElementById('html');
+    const css = document.getElementById('css');
+    const js = document.getElementById('js');
+    const preview = document.getElementById('preview');
+
+    function runCode() {
+      const code = `<!DOCTYPE html><html lang='ar' dir='rtl'><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width, initial-scale=1'><style>${css.value}</style></head><body>${html.value}<script>${js.value.replace(/<\\/g, '<\\\\/') }<\\/script></body></html>`;preview.srcdoc = code;
+}
+
+runBtn.addEventListener('click', runCode);
+
+// تشغيل تلقائي أثناء الكتابة
+[html, css, js].forEach(el => el.addEventListener('input', runCode));
+
+// مثال مبدئي
+html.value = `<section class='p-6 text-center'>\n  <h2 class='text-2xl font-bold text-indigo-600 mb-2'>مرحبًا بك في محرر الكود!</h2>\n  <p class='text-gray-700'>اكتب كودك في المربعات أعلاه وشاهد النتيجة فورًا.</p>\n</section>`;
+css.value = `body { font-family: 'Tajawal', sans-serif; background-color: #f8fafc; }`;
+js.value = `console.log('المحرر جاهز!');`;
+
+runCode();
+
+  </script>
+</body>
+</html>
